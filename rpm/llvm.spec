@@ -9,7 +9,6 @@ Source: %{version}/%{name}-%{version}.tar.gz
 Source1: LLVMBuild.txt
 Source100: llvm-3.0-rpmlintrc
 Patch0: llvm-3.1-sb2-build-workaround.patch
-Patch1: nosse4-avx.patch
 Requires(post): /sbin/ldconfig
 Requires(postun): /sbin/ldconfig
 BuildRequires: gcc >= 3.4, python
@@ -35,7 +34,6 @@ LLVM Header files
 %prep
 %setup -q -n %{name}-%{version}/%{name}
 %patch0 -p1
-#%patch1 -p1
 cp %{_sourcedir}/LLVMBuild.txt projects/
 
 %build

@@ -210,12 +210,13 @@ void X86Subtarget::AutoDetectSubtargetFeatures() {
   if ((EDX >> 26) & 1) { X86SSELevel = SSE2;  ToggleFeature(X86::FeatureSSE2); }
   if (ECX & 0x1)       { X86SSELevel = SSE3;  ToggleFeature(X86::FeatureSSE3); }
   if ((ECX >> 9)  & 1) { X86SSELevel = SSSE3; ToggleFeature(X86::FeatureSSSE3);}
+#if 0
   if ((ECX >> 19) & 1) { X86SSELevel = SSE41; ToggleFeature(X86::FeatureSSE41);}
   if ((ECX >> 20) & 1) { X86SSELevel = SSE42; ToggleFeature(X86::FeatureSSE42);}
   if (((ECX >> 27) & 1) && ((ECX >> 28) & 1) && OSHasAVXSupport()) {
     X86SSELevel = AVX;   ToggleFeature(X86::FeatureAVX);
   }
-
+#endif
   bool IsIntel = memcmp(text.c, "GenuineIntel", 12) == 0;
   bool IsAMD   = !IsIntel && memcmp(text.c, "AuthenticAMD", 12) == 0;
 
@@ -339,6 +340,7 @@ void X86Subtarget::AutoDetectSubtargetFeatures() {
         HasHLE = true;
         ToggleFeature(X86::FeatureHLE);
       }
+#if 0
       if (IsIntel && ((EBX >> 5) & 0x1)) {
         X86SSELevel = AVX2;
         ToggleFeature(X86::FeatureAVX2);
@@ -347,6 +349,7 @@ void X86Subtarget::AutoDetectSubtargetFeatures() {
         HasBMI2 = true;
         ToggleFeature(X86::FeatureBMI2);
       }
+#endif
       if (IsIntel && ((EBX >> 11) & 0x1)) {
         HasRTM = true;
         ToggleFeature(X86::FeatureRTM);
